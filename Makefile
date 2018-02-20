@@ -13,7 +13,7 @@
 NAME = nrepak.filler
 FLAGS = -Wall -Wextra -Werror
 LIB = libftprintf.a
-SRC = filler.c map_analyser.c
+SRC = filler.c
 OBJ = $(SRC:.c=.o)
 all: $(NAME)
 

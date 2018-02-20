@@ -28,5 +28,4 @@ typedef struct 	s_filler
 	int		x_coordinate_x;
 	int		x_coordinate_y; 
 }				t_filler;
-void	map_analyser(t_filler *f, int fd);
 #endif
