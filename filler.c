@@ -58,32 +58,30 @@ static void		create_pieace(t_filler *f, int fd)
 	int		i; 
 
 	i = 0;
-	while (get_next_line(fd, &str) == 1)
+	get_next_line(fd, &str);
+	if (str[0] == 'P' && str[1] == 'i')
+		piece_coordinates(str, f);
+	f->piece = (char **)malloc(sizeof(char *) * (f->y_piece + 1));
+	while (i < f->y_piece && get_next_line(fd, &str) == 1)
 	{
-		if (str[0] == 'P' && str[1] == 'i')
-			piece_coordinates(str, f);
-		f->piece = (char **)malloc(sizeof(char *) * (f->y_piece + 1));
-		while (i < f->y_piece && get_next_line(fd, &str) == 1)
-		{
-			f->piece[i] = ft_strdup(str);
-			i++;
-		}
-		f->piece[i] = NULL;
-		int a = 0;
-		while (f->map[a])
-		{
-			ft_printf("%s\n", f->map[a]);
-			a++;
-		}
-		a = 0;
-		while (f->piece[a])
-		{
-			ft_printf("%s\n", f->piece[a]);
-			a++;
-		}
-		ft_printf("%d\n", f->x_map);
-		ft_printf("%d\n", f->y_map);
+		f->piece[i] = ft_strdup(str);
+		i++;
 	}
+	f->piece[i] = NULL;
+	int a = 0;
+	while (f->map[a])
+	{
+		ft_printf("%s\n", f->map[a]);
+		a++;
+	}
+	a = 0;
+	while (f->piece[a])
+	{
+		ft_printf("%s\n", f->piece[a]);
+		a++;
+	}
+	ft_printf("%d\n", f->x_map);
+	ft_printf("%d\n", f->y_map);
 }
 			
 int				main(void)
@@ -98,10 +96,12 @@ int				main(void)
 	f.player = (str[10] == '1') ? 'O' : 'X';
 	f.bot = (str[10] == '2') ? 'O' : 'X';
 	ft_strdel(&str);
-	get_next_line(fd, &str);
-	map_coordinates(str, &f);
-	ft_strdel(&str);
-	f.map = create_map(fd, f);
-	create_pieace(&f, fd);
+	while (get_next_line(fd, &str) > 0)
+	{
+		map_coordinates(str, &f);
+		ft_strdel(&str);
+		f.map = create_map(fd, f);
+		create_pieace(&f, fd);
+	}
 	return (0);
 }
