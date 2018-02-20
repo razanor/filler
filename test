@@ -1,4 +1,4 @@
-$$$ exec p1 : [./players/nrepak.filler]
+$$$ exec p2 : [./players/nrepak.filler]
 Plateau 15 17:
     01234567890123456
 000 .................

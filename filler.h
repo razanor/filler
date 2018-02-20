@@ -17,6 +17,7 @@
 typedef struct 	s_filler
 {
 	char	player;
+	char	bot;
 	char	**map;
 	int		x_map;
 	int		y_map;
