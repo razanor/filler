@@ -23,5 +23,10 @@ typedef struct 	s_filler
 	char	**piece;
 	int		x_piece;
 	int		y_piece;
+	int		o_coordinate_x;
+	int		o_coordinate_y;
+	int		x_coordinate_x;
+	int		x_coordinate_y; 
 }				t_filler;
+void	map_analyser(t_filler *f, int fd);
 #endif

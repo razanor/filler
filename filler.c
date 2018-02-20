@@ -47,13 +47,14 @@ static char		**create_map(int fd, t_filler f)
 	map[i] = NULL;
 	return (map);
 }
-
+			
 int				main(void)
 {
 	t_filler	f;
 	char		*str;
 	int			fd;
 
+	f = (t_filler){'\0', NULL, 0, 0, NULL, 0, 0, 0, 0, 0, 0};
 	fd = open("test", O_RDWR);
 	get_next_line(fd, &str);
 	f.player = (str[10] == '1') ? 'X' : 'O';
@@ -62,5 +63,6 @@ int				main(void)
 	map_coordinates(str, &f);
 	ft_strdel(&str);
 	f.map = create_map(fd, f);
+	map_analyser(&f, fd);
 	return (0);
 }
