@@ -29,4 +29,7 @@ typedef struct 	s_filler
 	int		x_coordinate_x;
 	int		x_coordinate_y; 
 }				t_filler;
+
+void		markup_map(t_filler *f);
+void		put_piece(t_filler *f);
 #endif

@@ -34,7 +34,7 @@ static char		**create_map(int fd, t_filler f)
 	ft_strdel(&str);
 	while (i < f.y_map && get_next_line(fd, &str) == 1)
 	{
-		map[i] = ft_strsub(str, 4, (size_t)f.x_map);
+		map[i] = ft_strdup(str + 4);
 		i++;
 		ft_strdel(&str);	
 	}
@@ -88,7 +88,9 @@ int				main(void)
 		map_coordinates(str, &f);
 		ft_strdel(&str);
 		f.map = create_map(fd, f);
+		markup_map(&f);
 		create_pieace(&f, fd);
+		put_piece(&f);
 	}
 	return (0);
 }
