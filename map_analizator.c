@@ -12,10 +12,10 @@
 
 #include "filler.h"
 
-void	markup_map(t_filler *f)
+void markup_map(t_filler *f)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
@@ -36,19 +36,22 @@ void	markup_map(t_filler *f)
 	}
 }
 
-void	put_piece(t_filler *f)
+void put_piece(t_filler *f)
 {
-	int i;
-	int j;
-	int a;
-	int b;
-	int flag;
+	int	i;
+	int	j;
+	int	a;
+	int	b;
+	int	flag;
+	int	flag1;
+	int flag2;
 
 	i = 0;
 	j = 0;
 	a = 0;
 	b = 0;
 	flag = 0;
+	flag2 = 0;
 	while (f->map[i])
 	{
 		j = 0;
@@ -60,24 +63,35 @@ void	put_piece(t_filler *f)
 				b = 0;
 				while (f->piece[a][b])
 				{
-					if (f->piece[a][b] == '*' && i + a < f->y_map && j + b < f->x_map) 
+					if (f->piece[a][b] == '*')
 					{
-						if (f->map[i + a][j + b] == '1' && f->map[i + a][j + b] != '0')
+						if ((i + a) < f->y_map && (j + b) < f->x_map && f->map[i + a][j + b] == '1')
 							flag++;
+						if ((i + a) < f->y_map && (j + b) < f->x_map && f->map[i + a][j + b] == '0')
+							flag1++;
+						if (((i + a) >= f->y_map || (j + b) >= f->x_map))
+							flag2++;
 					}
 					b++;
 				}
 				a++;
 			}
-			if (flag == 1)
+			if (flag == 1 && flag1 == 0 && flag2 == 0)
+			{
 				ft_printf("%d %d\n", i, j); // here
+				return ;
+			}
+			flag = 0;
+			flag1 = 0;
+			flag2 = 0;
 			j++;
 		}
 		i++;
 	}
+	ft_printf("%d %d\n", 0, 0);
 	// printf("i = %d\n", i);
 	// printf("j = %d\n", j);
 	// printf("a = %d\n", a);
 	// printf("b = %d\n", b);
-	
+
 }

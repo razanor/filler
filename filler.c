@@ -77,8 +77,9 @@ int				main(void)
 	char		*str;
 	int			fd;
 
+	fd = 0;
 	f = (t_filler){'\0', '\0', NULL, 0, 0, NULL, 0, 0, 0, 0, 0, 0};
-	fd = open("test", O_RDWR);
+	//fd = open("test", O_RDWR);
 	get_next_line(fd, &str);
 	f.player = (str[10] == '1') ? 'O' : 'X';
 	f.bot = (str[10] == '2') ? 'O' : 'X';
