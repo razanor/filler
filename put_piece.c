@@ -17,7 +17,7 @@ static int	player(t_filler *f, t_flag *n)
 	if ((n->i + n->a) < f->y_map && (n->j + n->b) < f->x_map && 
 		(f->map[n->i + n->a][n->j + n->b] == f->player || 
 			f->map[n->i + n->a][n->j + n->b] == ft_tolower(f->player)))
-			return (1);
+		return (1);
 	else
 		return (0);		
 }
@@ -51,8 +51,9 @@ static void	check_piece(t_filler *f, t_flag *n)
 				(n->b)++;
 		}
 		(n->a)++;
-	}
+	} 
 }
+
 void 		put_piece(t_filler *f)
 {
 	t_flag n;

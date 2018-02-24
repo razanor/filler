@@ -76,10 +76,12 @@ int				main(void)
 	t_filler	f;
 	char		*str;
 	int			fd;
+	int			flag;
 
-	fd = 0;
-	f = (t_filler){'\0', '\0', NULL, 0, 0, NULL, 0, 0, {0, 0}};
-	//fd = open("test", O_RDWR);
+	//fd = 0;
+	flag = 0;
+	f = (t_filler){'\0','\0', 0, 0, 0, NULL, 0, 0, NULL, 0, 0, {0, 0}};
+	fd = open("test", O_RDWR);
 	get_next_line(fd, &str);
 	f.player = (str[10] == '1') ? 'O' : 'X';
 	f.bot = (str[10] == '2') ? 'O' : 'X';
@@ -90,6 +92,7 @@ int				main(void)
 		ft_strdel(&str);
 		f.map = create_map(fd, f);
 		create_pieace(&f, fd);
+		(flag++ == 0) ? find_min_x(&f) : 0;
 		put_piece(&f);
 	}
 	return (0);

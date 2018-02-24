@@ -12,12 +12,17 @@
 
 #ifndef FILLER_H
 # define FILLER_H
+# define MAX 1
+# define MIN 2
 # include "./printf/ft_printf.h"
 
 typedef struct 	s_filler
 {
 	char			player;
 	char			bot;
+	int				p_start;
+	int				b_start;
+	int				pos_flag;
 	char			**map;
 	int				x_map;
 	int				y_map;
@@ -39,4 +44,5 @@ typedef struct 	s_flag
 }				t_flag;
 
 void		put_piece(t_filler *f);
+void		find_min_x(t_filler *f);
 #endif
