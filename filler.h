@@ -38,6 +38,5 @@ typedef struct 	s_flag
 	int				flag2;
 }				t_flag;
 
-void		markup_map(t_filler *f);
 void		put_piece(t_filler *f);
 #endif
