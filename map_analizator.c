@@ -12,86 +12,70 @@
 
 #include "filler.h"
 
-void markup_map(t_filler *f)
+static int	player(t_filler *f, t_flag *n)
 {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (f->map[i])
-	{
-		j = 0;
-		while (f->map[i][j])
-		{
-			if (f->map[i][j] == f->bot || f->map[i][j] == ft_tolower(f->bot))
-				f->map[i][j] = '0';
-			else if (f->map[i][j] == f->player || f->map[i][j] == ft_tolower(f->player))
-				f->map[i][j] = '1';
-			else
-				f->map[i][j] = '|';
-			j++;
-		}
-		i++;
-	}
+	if ((n->i + n->a) < f->y_map && (n->j + n->b) < f->x_map && 
+		(f->map[n->i + n->a][n->j + n->b] == f->player || 
+			f->map[n->i + n->a][n->j + n->b] == ft_tolower(f->player)))
+			return (1);
+	else
+		return (0);		
 }
 
-void put_piece(t_filler *f)
+static int	bot(t_filler *f, t_flag *n)
 {
-	int	i;
-	int	j;
-	int	a;
-	int	b;
-	int	flag;
-	int	flag1;
-	int flag2;
+	if ((n->i + n->a) < f->y_map && (n->j + n->b) < f->x_map && 
+		(f->map[n->i + n->a][n->j + n->b] == f->bot || 
+			f->map[n->i + n->a][n->j + n->b] == ft_tolower(f->bot)))
+		return (1);
+	else
+		return (0);
+}	
 
-	i = 0;
-	j = 0;
-	a = 0;
-	b = 0;
-	flag = 0;
-	flag2 = 0;
-	while (f->map[i])
+static void	check_piece(t_filler *f, t_flag *n)
+{
+	while (f->piece[n->a])
 	{
-		j = 0;
-		while (f->map[i][j])
+		n->b = 0;
+		while (f->piece[n->a][n->b])
 		{
-			a = 0;
-			while (f->piece[a])
+			if (f->piece[n->a][n->b] == '*')
 			{
-				b = 0;
-				while (f->piece[a][b])
-				{
-					if (f->piece[a][b] == '*')
-					{
-						if ((i + a) < f->y_map && (j + b) < f->x_map && f->map[i + a][j + b] == '1')
-							flag++;
-						if ((i + a) < f->y_map && (j + b) < f->x_map && f->map[i + a][j + b] == '0')
-							flag1++;
-						if (((i + a) >= f->y_map || (j + b) >= f->x_map))
-							flag2++;
-					}
-					b++;
-				}
-				a++;
+				if (player(f,n))
+					(n->flag)++;
+				if (bot(f,n))
+					(n->flag1)++;
+				if (((n->i + n->a) >= f->y_map || (n->j + n->b) >= f->x_map))
+					(n->flag2)++;
 			}
-			if (flag == 1 && flag1 == 0 && flag2 == 0)
-			{
-				ft_printf("%d %d\n", i, j); // here
+				(n->b)++;
+		}
+		(n->a)++;
+	}
+}
+void 		put_piece(t_filler *f)
+{
+	t_flag n;
+
+	n = (t_flag){0, 0, 0, 0, 0, 0, 0};
+	while (f->map[n.i])
+	{
+		n.j = 0;
+		while (f->map[n.i][n.j])
+		{
+			n.a = 0;
+			check_piece(f, &n);
+			if (n.flag == 1 && n.flag1 == 0 && n.flag2 == 0)
+			{	
+				ft_printf("%d %d\n", n.i, n.j);
 				return ;
 			}
-			flag = 0;
-			flag1 = 0;
-			flag2 = 0;
-			j++;
+			n.flag = 0;
+			n.flag1 = 0;
+			n.flag2 = 0;
+			n.j++;
 		}
-		i++;
+		n.i++;
 	}
 	ft_printf("%d %d\n", 0, 0);
-	// printf("i = %d\n", i);
-	// printf("j = %d\n", j);
-	// printf("a = %d\n", a);
-	// printf("b = %d\n", b);
-
 }

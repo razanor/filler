@@ -16,19 +16,27 @@
 
 typedef struct 	s_filler
 {
-	char	player;
-	char	bot;
-	char	**map;
-	int		x_map;
-	int		y_map;
-	char	**piece;
-	int		x_piece;
-	int		y_piece;
-	int		o_coordinate_x;
-	int		o_coordinate_y;
-	int		x_coordinate_x;
-	int		x_coordinate_y; 
+	char			player;
+	char			bot;
+	char			**map;
+	int				x_map;
+	int				y_map;
+	char			**piece;
+	int				x_piece;
+	int				y_piece;
+	int				min[2];
 }				t_filler;
+
+typedef struct 	s_flag
+{
+	int 			i;
+	int				j;
+	int				a;
+	int				b;
+	int				flag;
+	int				flag1;
+	int				flag2;
+}				t_flag;
 
 void		markup_map(t_filler *f);
 void		put_piece(t_filler *f);

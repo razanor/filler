@@ -78,7 +78,7 @@ int				main(void)
 	int			fd;
 
 	fd = 0;
-	f = (t_filler){'\0', '\0', NULL, 0, 0, NULL, 0, 0, 0, 0, 0, 0};
+	f = (t_filler){'\0', '\0', NULL, 0, 0, NULL, 0, 0, {0, 0}};
 	//fd = open("test", O_RDWR);
 	get_next_line(fd, &str);
 	f.player = (str[10] == '1') ? 'O' : 'X';
@@ -89,7 +89,6 @@ int				main(void)
 		map_coordinates(str, &f);
 		ft_strdel(&str);
 		f.map = create_map(fd, f);
-		markup_map(&f);
 		create_pieace(&f, fd);
 		put_piece(&f);
 	}
