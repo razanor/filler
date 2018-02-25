@@ -29,7 +29,7 @@ typedef struct 	s_filler
 	char			**piece;
 	int				x_piece;
 	int				y_piece;
-	int				min[2];
+	int				near[2];
 }				t_filler;
 
 typedef struct 	s_flag
@@ -45,4 +45,5 @@ typedef struct 	s_flag
 
 void		put_piece(t_filler *f);
 void		find_min_x(t_filler *f);
+void		map_analyzer(t_filler *f);
 #endif

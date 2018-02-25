@@ -93,6 +93,7 @@ int				main(void)
 		f.map = create_map(fd, f);
 		create_pieace(&f, fd);
 		(flag++ == 0) ? find_min_x(&f) : 0;
+		map_analyzer(&f);
 		put_piece(&f);
 	}
 	return (0);

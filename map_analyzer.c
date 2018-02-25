@@ -12,7 +12,87 @@
 
 #include "filler.h"
 
-void	find_min_x(t_filler *f)
+static void	max_bot(t_filler *f)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (f->map[i])
+	{
+		j = 0;
+		while (f->map[i][j])
+		{
+			if (f->map[i][j] == f->bot || f->map[i][j] == ft_tolower(f->bot))
+			{
+				if (f->near[1] < j)
+				{
+					f->near[0] = i;
+					f->near[1] = j;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	min_bot(t_filler *f)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (f->map[i])
+	{
+		j = 0;
+		while (f->map[i][j])
+		{
+			if (f->map[i][j] == f->bot || f->map[i][j] == ft_tolower(f->bot))
+			{
+				if (f->near[1] >= j)
+				{
+					f->near[0] = i;
+					f->near[1] = j;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void		map_analyzer(t_filler *f)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+
+	while (f->map[i])
+	{
+		j = 0;
+		while (f->map[i][j])
+		{
+			if (f->map[i][j] == f->bot || f->map[i][j] == ft_tolower(f->bot))
+			{
+				f->near[0] = i;
+				f->near[1] = j;
+			}
+			j++;
+		}
+		i++;
+	}
+	if (f->pos_flag == MAX)
+		max_bot(f);
+	if (f->pos_flag == MIN)
+		min_bot(f);
+}
+
+void		find_min_x(t_filler *f)
 {
 	int i;
 	int j;

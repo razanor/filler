@@ -69,7 +69,6 @@ void 		put_piece(t_filler *f)
 			if (n.flag == 1 && n.flag1 == 0 && n.flag2 == 0)
 			{	
 				ft_printf("%d %d\n", n.i, n.j);
-				return ;
 			}
 			n.flag = 0;
 			n.flag1 = 0;
