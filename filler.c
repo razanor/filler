@@ -78,10 +78,10 @@ int				main(void)
 	int			fd;
 	int			flag;
 
-	//fd = 0;
+	fd = 0;
 	flag = 0;
-	f = (t_filler){'\0','\0', 0, 0, 0, NULL, 0, 0, NULL, 0, 0, {0, 0}};
-	fd = open("test", O_RDWR);
+	f = (t_filler){'\0','\0', 0, NULL, 0, 0, NULL, 0, 0, {0, 0}};
+	//fd = open("test", O_RDWR);
 	get_next_line(fd, &str);
 	f.player = (str[10] == '1') ? 'O' : 'X';
 	f.bot = (str[10] == '2') ? 'O' : 'X';

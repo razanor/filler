@@ -13,20 +13,28 @@
 NAME = nrepak.filler
 FLAGS = -Wall -Wextra -Werror
 LIB = libftprintf.a
-SRC = filler.c put_piece.c map_analyzer.c
+SRC = filler.c check_piece.c map_analyzer.c put_coordinate.c
 OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ cd ./printf && make && mv $(LIB) ..
+	@ echo "-----------------------------------"
+	@ echo "nrepak.filler is ready to fight"
+	@ cd ./libft && make && mv $(LIB) ..
 	@ gcc $(OBJ) $(LIB) $(FLAGS) -o $(NAME)
+	@ gcc $(FLAGS) -o bonus bonus.c $(LIB)
 %.o: %.c
 	@ gcc $(FLAGS) -c $<
 clean:
+	@ echo "-----------------------------------"
+	@ echo "Objects files are removed"
 	@ /bin/rm -rf $(OBJ)
-	@ cd ./printf && make clean
+	@ cd ./libft && make clean
 fclean: clean
+	@ echo "-----------------------------------"
+	@ echo "nrepak.filler is deleted"
 	@ /bin/rm -f $(NAME)
 	@ /bin/rm -f $(LIB)
-	@ cd ./printf && make fclean
+	@ /bin/rm -f bonus
+	@ cd ./libft && make fclean
 re: fclean all

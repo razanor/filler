@@ -14,14 +14,18 @@
 # define FILLER_H
 # define MAX 1
 # define MIN 2
-# include "./printf/ft_printf.h"
+# define RESET  "\x1B[0m"
+# define RED 	"\x1B[31m"
+# define BLUE   "\x1B[34m"
+# define GREEN  "\x1B[32m"
+# define YELLOW "\x1B[33m"
+# define PURPLE "\x1B[35m"
+# include "./libft/ft_printf.h"
 
 typedef struct 	s_filler
 {
 	char			player;
 	char			bot;
-	int				p_start;
-	int				b_start;
 	int				pos_flag;
 	char			**map;
 	int				x_map;
@@ -41,9 +45,19 @@ typedef struct 	s_flag
 	int				flag;
 	int				flag1;
 	int				flag2;
+	int				flag3;
 }				t_flag;
+
+typedef struct  s_options
+{
+	int					i;
+	int					j;
+	struct s_options 	*next;	
+}				t_options;
 
 void		put_piece(t_filler *f);
 void		find_min_x(t_filler *f);
 void		map_analyzer(t_filler *f);
+void		put_final_coordinate(t_options **head, t_filler *f);
+int 		modul(int a);
 #endif

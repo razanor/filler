@@ -12,13 +12,15 @@
 
 #include "filler.h"
 
-static void	max_bot(t_filler *f)
+static void	near_spot(t_filler *f)
 {
-	int i;
+	int	i;
 	int j;
+	int	index;
 
 	i = 0;
 	j = 0;
+	index = modul(0 - f->near[0]) + modul(0 - f->near[1]);
 	while (f->map[i])
 	{
 		j = 0;
@@ -26,37 +28,12 @@ static void	max_bot(t_filler *f)
 		{
 			if (f->map[i][j] == f->bot || f->map[i][j] == ft_tolower(f->bot))
 			{
-				if (f->near[1] < j)
-				{
+				if (index > modul(0 - i) + modul(0 - j))
+				{	
+					index = modul(0 - i) + modul(0 - j);
 					f->near[0] = i;
 					f->near[1] = j;
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-static void	min_bot(t_filler *f)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (f->map[i])
-	{
-		j = 0;
-		while (f->map[i][j])
-		{
-			if (f->map[i][j] == f->bot || f->map[i][j] == ft_tolower(f->bot))
-			{
-				if (f->near[1] >= j)
-				{
-					f->near[0] = i;
-					f->near[1] = j;
-				}
+				}	
 			}
 			j++;
 		}
@@ -81,21 +58,21 @@ void		map_analyzer(t_filler *f)
 			{
 				f->near[0] = i;
 				f->near[1] = j;
+				near_spot(f);
+				return ;
 			}
 			j++;
 		}
 		i++;
 	}
-	if (f->pos_flag == MAX)
-		max_bot(f);
-	if (f->pos_flag == MIN)
-		min_bot(f);
 }
 
 void		find_min_x(t_filler *f)
 {
 	int i;
 	int j;
+	int	bot;
+	int player;
 
 	i = 0;
 	j = 0;
@@ -105,12 +82,12 @@ void		find_min_x(t_filler *f)
 		while (f->map[i][j])
 		{
 			if (f->map[i][j] == f->player)
-				f->p_start = j;
+				player = j;
 			if (f->map[i][j] == f->bot)
-				f->b_start = j;
+				bot = j;
 			j++;
 		}
 		i++;
 	}
-	f->pos_flag = (f->p_start - f->b_start > 0) ? MAX : MIN;
+	f->pos_flag = (player - bot > 0) ? MAX : MIN; // тут 
 }

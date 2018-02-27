@@ -54,11 +54,36 @@ static void	check_piece(t_filler *f, t_flag *n)
 	} 
 }
 
+static void	analyze_options(t_options **head, int a, int b)
+{
+	t_options *tmp;
+
+	if (!(*head))
+	{
+		(*head) = (t_options*)malloc(sizeof(t_options));
+		(*head)->i = a;
+		(*head)->j = b;
+		(*head)->next = NULL;
+	}
+	else
+	{
+		tmp = (*head);
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = (t_options*)malloc(sizeof(t_options));
+		tmp->next->i = a;
+		tmp->next->j = b;
+		tmp->next->next = NULL;
+	}
+}
+
 void 		put_piece(t_filler *f)
 {
 	t_flag n;
+	t_options *head;
 
-	n = (t_flag){0, 0, 0, 0, 0, 0, 0};
+	head = NULL;
+	n = (t_flag){0, 0, 0, 0, 0, 0, 0, 0};
 	while (f->map[n.i])
 	{
 		n.j = 0;
@@ -67,8 +92,9 @@ void 		put_piece(t_filler *f)
 			n.a = 0;
 			check_piece(f, &n);
 			if (n.flag == 1 && n.flag1 == 0 && n.flag2 == 0)
-			{	
-				ft_printf("%d %d\n", n.i, n.j);
+			{
+				analyze_options(&head, n.i, n.j);
+				n.flag3++;
 			}
 			n.flag = 0;
 			n.flag1 = 0;
@@ -77,5 +103,5 @@ void 		put_piece(t_filler *f)
 		}
 		n.i++;
 	}
-	ft_printf("%d %d\n", 0, 0);
+	(n.flag3) ? put_final_coordinate(&head, f) : ft_printf("%d %d\n", 0, 0); 	
 }
