@@ -6,7 +6,7 @@
 /*   By: nrepak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 12:30:25 by nrepak            #+#    #+#             */
-/*   Updated: 2018/02/15 14:02:51 by nrepak           ###   ########.fr       */
+/*   Updated: 2018/02/28 22:58:29 by nrepak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char		**create_map(int fd, t_filler f)
 	{
 		map[i] = ft_strdup(str + 4);
 		i++;
-		ft_strdel(&str);	
+		ft_strdel(&str);
 	}
 	map[i] = NULL;
 	return (map);
@@ -55,7 +55,7 @@ static void		piece_coordinates(char *str, t_filler *f)
 static void		create_pieace(t_filler *f, int fd)
 {
 	char	*str;
-	int		i; 
+	int		i;
 
 	i = 0;
 	get_next_line(fd, &str);
@@ -70,18 +70,15 @@ static void		create_pieace(t_filler *f, int fd)
 	}
 	f->piece[i] = NULL;
 }
-			
+
 int				main(void)
 {
 	t_filler	f;
 	char		*str;
 	int			fd;
-	int			flag;
 
 	fd = 0;
-	flag = 0;
-	f = (t_filler){'\0','\0', 0, NULL, 0, 0, NULL, 0, 0, {0, 0}};
-	//fd = open("test", O_RDWR);
+	f = (t_filler){'\0', '\0', '\0', NULL, 0, 0, NULL, 0, 0, {0, 0}};
 	get_next_line(fd, &str);
 	f.player = (str[10] == '1') ? 'O' : 'X';
 	f.bot = (str[10] == '2') ? 'O' : 'X';
@@ -92,7 +89,6 @@ int				main(void)
 		ft_strdel(&str);
 		f.map = create_map(fd, f);
 		create_pieace(&f, fd);
-		(flag++ == 0) ? find_min_x(&f) : 0;
 		map_analyzer(&f);
 		put_piece(&f);
 	}
